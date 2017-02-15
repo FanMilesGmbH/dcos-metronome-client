@@ -1,0 +1,39 @@
+{
+  "name": "dcos-metronome-client",
+  "version": "1.0.0",
+  "description": "Thin JS client for DC/OS Metronome job scheduler Edit",
+  "main": "index.js",
+  "scripts": {
+    "test-unit": "./node_modules/.bin/mocha --opts ./test/unit-mocha.opts",
+    "test-integration": "./node_modules/.bin/mocha --opts ./test/integration-mocha.opts",
+    "eslint": "./node_modules/.bin/eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FanMilesGmbH/dcos-metronome-client.git"
+  },
+  "keywords": [
+    "dcos",
+    "metronome",
+    "fanmiles"
+  ],
+  "author": "Fanmiles GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FanMilesGmbH/dcos-metronome-client/issues"
+  },
+  "homepage": "https://github.com/FanMilesGmbH/dcos-metronome-client#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "eslint": "^3.15.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "sinon-as-promised": "^4.0.2",
+    "sinon-chai": "^2.8.0"
+  }
+}

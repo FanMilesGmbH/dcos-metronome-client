@@ -1,0 +1,3 @@
+test/integration/**/*.js
+--check-leaks
+--timeout 2000
