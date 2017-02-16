@@ -1,3 +1,5 @@
+'use strict';
+
 class MetronomeClient {
     constructor (dependencies) {
         this.metronomeBaseUrl = dependencies.metronomeBaseUrl;
