@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "6"
+  - "4"
+script: 
+  - npm run test-unit
+notifications:
+  email:
+    - f2-dev@fanmiles.com
