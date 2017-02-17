@@ -2,6 +2,10 @@
 
 Implements some of the REST API http methods of the [Methonome API](http://dcos.github.io/metronome/docs/generated/api.html)
 
+# Code health
+
+[![Build Status](https://travis-ci.org/FanMilesGmbH/dcos-metronome-client.svg?branch=master)](https://travis-ci.org/FanMilesGmbH/dcos-metronome-client)
+
 Example usage with request library as httpClient:
 
 ```javascript
