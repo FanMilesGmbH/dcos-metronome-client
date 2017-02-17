@@ -102,4 +102,36 @@ describe('Metronome client', () => {
             });
         });
     });
+
+    context('Find jobs', () => {
+
+        beforeEach(Promise.coroutine(function * () {
+            yield sut.listJobs();
+        }));
+
+        it('should call http client exactly with', () => {
+            expect(httpClient).to.be.calledWithExactly({
+                method: 'GET',
+                json: true,
+                url: `${metronomeBaseUrl}/v1/jobs`
+            });
+        });
+    });
+
+    context('Find jobs with argument "history"', () => {
+
+        const argument = 'history';
+
+        beforeEach(Promise.coroutine(function * () {
+            yield sut.listJobs(argument);
+        }));
+
+        it('should call http client exactly with', () => {
+            expect(httpClient).to.be.calledWithExactly({
+                method: 'GET',
+                json: true,
+                url: `${metronomeBaseUrl}/v1/jobs?embed=${argument}`
+            });
+        });
+    });
 });
