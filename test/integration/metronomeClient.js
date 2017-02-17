@@ -8,6 +8,10 @@ const expect = require('./../chai').expect;
 
 const MetronomeClient = require('../../MetronomeClient.js');
 
+function getRandomJobName() {
+    return 'test-' + (new Date()).getTime();
+}
+
 describe('Metronome client (integration)', () => {
     let sut;
     let metronomeBaseUrl;
@@ -31,7 +35,7 @@ describe('Metronome client (integration)', () => {
 
         beforeEach(Promise.coroutine(function * () {
             jobPayload = {
-                id: 'test-' + (new Date()).getTime(),
+                id: getRandomJobName(),
                 run: {
                     env: {
                         TEST1: 'test',
@@ -64,7 +68,7 @@ describe('Metronome client (integration)', () => {
 
         beforeEach(Promise.coroutine(function * () {
             jobPayload = {
-                id: 'test-' + (new Date()).getTime(),
+                id: getRandomJobName(),
                 run: {
                     cpus: 0.01,
                     mem: 32,
@@ -87,4 +91,34 @@ describe('Metronome client (integration)', () => {
         it('should contain id', () => expect(result).to.have.property('id'));
         it('should contain job id', () => expect(result).to.have.property('jobId'));
     });
+
+    context('Find existing jobs', () => {
+        let result;
+        let jobName = getRandomJobName();
+
+        beforeEach(Promise.coroutine(function * () {
+            jobPayload = {
+                id: jobName,
+                run: {
+                    cpus: 0.01,
+                    mem: 32,
+                    disk: 0,
+                    docker: {
+                        image: 'busybox'
+                    }
+                }
+            };
+
+            yield sut.createJob(jobPayload);
+
+            result = yield sut.listJobs();
+        }));
+
+        it('should contain '+ jobName + ' in list', () => {
+            const createdJob = result.filter(job => job.id === jobName);
+
+            expect(createdJob).to.have.length(1);
+        });
+    });
+
 });

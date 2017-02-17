@@ -36,6 +36,20 @@ class MetronomeClient {
             })
             .then(response => response.body);
     }
+
+    listJobs(params) {
+        let url = `${this.metronomeBaseUrl}/v1/jobs`;
+        if(params) {
+            url = `${url}?embed=${params}`;
+        }
+        return this
+            .httpClient({
+                method: 'GET',
+                json: true,
+                url
+            })
+            .then(response => response.body);
+    }
 }
 
 module.exports = MetronomeClient;
