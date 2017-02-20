@@ -4,20 +4,11 @@ Implements some of the REST API http methods of the [Methonome API](http://dcos.
 
 [![Build Status](https://travis-ci.org/FanMilesGmbH/dcos-metronome-client.svg?branch=master)](https://travis-ci.org/FanMilesGmbH/dcos-metronome-client)
 
-Example usage with request library as httpClient:
+Example usage:
 
 ```javascript
 
-const Promise = require('bluebird');
-const requestSync = require('request');
-const request = Promise.promisify(requestSync);
-
-const MetronomeClient = require('dcos-metronome-client');
-
-const metronomeClient = new MetronomeClient({
-    metronomeBaseUrl: 'http://metronome.mesos:9000',
-    httpClient: request
-});
+const metronomeClient = require('dcos-metronome-client').getInstance('http://metronome.mesos:9000');
 
 const jobPayload = {
     id: 'test-' + (new Date()).getTime(),
