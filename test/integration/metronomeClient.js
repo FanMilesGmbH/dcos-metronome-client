@@ -1,30 +1,18 @@
 'use strict';
 
 const Promise = require('bluebird');
-const requestSync = require('request');
-const request = Promise.promisify(requestSync);
 
 const expect = require('./../chai').expect;
 
-const MetronomeClient = require('../../MetronomeClient.js');
+const metronomeBaseUrl = 'http://metronome.mesos:9000';
+const sut = require('../../index.js').getInstance(metronomeBaseUrl);
 
 function getRandomJobName() {
     return 'test-' + (new Date()).getTime();
 }
 
 describe('Metronome client (integration)', () => {
-    let sut;
-    let metronomeBaseUrl;
     let jobPayload;
-
-    beforeEach(() => {
-        metronomeBaseUrl = 'http://metronome.mesos:9000';
-
-        sut = new MetronomeClient({
-            metronomeBaseUrl,
-            httpClient: request
-        });
-    });
 
     afterEach(Promise.coroutine(function * () {
         yield sut.removeJob(jobPayload);
