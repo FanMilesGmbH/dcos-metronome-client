@@ -95,6 +95,82 @@ describe('Metronome client', () => {
     });
   });
 
+  context('Get a job (getJob)', () => {
+    const jobId = 'somekind-id';
+    let result;
+
+    context('when only id param is provided', () => {
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}`,
+        });
+      });
+    });
+
+    context('when id and embed param are provided', () => {
+      const embed = 'activeRuns';
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId, embed });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}?embed=${embed}`,
+        });
+      });
+    });
+  });
+
+  context('Get new job (getJob)', () => {
+    const jobId = 'somekind-id';
+    let result;
+
+    context('when only id param is provided', () => {
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}`,
+        });
+      });
+    });
+
+    context('when id and embed param are provided', () => {
+      const embed = 'activeRuns';
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId, embed });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}?embed=${embed}`,
+        });
+      });
+    });
+  });
+
   context('Run an existing job', () => {
     let result;
     let inputPayload;
