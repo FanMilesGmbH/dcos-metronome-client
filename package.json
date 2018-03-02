@@ -39,8 +39,8 @@
     "sinon-as-promised": "^4.0.2",
     "sinon-chai": "^2.8.0"
   },
-  "engines" : {
-    "node" : ">=6.0.0"
+  "engines": {
+    "node": ">=6.0.0"
   },
   "engineStrict": true
 }

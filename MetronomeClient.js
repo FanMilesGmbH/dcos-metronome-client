@@ -38,18 +38,6 @@ class MetronomeClient {
       .then(response => response.body);
   }
 
-  getJob({ id, embed }) {
-    const baseUrl = `${this.metronomeBaseUrl}/v1/jobs/${id}`;
-    const url = embed ? `${baseUrl}?embed=${embed}` : baseUrl;
-    return this
-      .httpClient({
-        method: 'GET',
-        url,
-        json: true,
-      })
-      .then(response => response.body);
-  }
-
   runJob(job) {
     return this
       .httpClient({
