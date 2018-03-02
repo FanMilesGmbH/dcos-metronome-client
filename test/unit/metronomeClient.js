@@ -95,6 +95,75 @@ describe('Metronome client', () => {
     });
   });
 
+  context('Update job (updateJob)', () => {
+    const jobId = 'somekind-id';
+    const createJobPayload = {
+      id: jobId,
+      run: {
+        cpus: 0.01,
+        mem: 32,
+        disk: 0,
+        docker: {
+          image: 'busybox',
+        },
+      },
+    };
+    let result;
+
+    beforeEach(Promise.coroutine(function* beforeEachHandler() {
+      result = yield sut.updateJob(createJobPayload);
+    }));
+
+    it('should contain job id', () => expect(result).to.have.property('id'));
+
+    it('should call http client exactly with', () => {
+      expect(httpClient).to.be.calledWithExactly({
+        method: 'PUT',
+        json: true,
+        url: `${metronomeBaseUrl}/v1/jobs/${jobId}`,
+        body: createJobPayload,
+      });
+    });
+  });
+
+  context('Get a job (getJob)', () => {
+    const jobId = 'somekind-id';
+    let result;
+
+    context('when only id param is provided', () => {
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}`,
+        });
+      });
+    });
+
+    context('when id and embed param are provided', () => {
+      const embed = 'activeRuns';
+      beforeEach(Promise.coroutine(function* beforeEachHandler() {
+        result = yield sut.getJob({ id: jobId, embed });
+      }));
+
+      it('should contain job id', () => expect(result).to.have.property('id'));
+
+      it('should call http client exactly with', () => {
+        expect(httpClient).to.be.calledWithExactly({
+          method: 'GET',
+          json: true,
+          url: `${metronomeBaseUrl}/v1/jobs/${jobId}?embed=${embed}`,
+        });
+      });
+    });
+  });
+
   context('Run an existing job', () => {
     let result;
     let inputPayload;
